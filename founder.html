@@ -1,15 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Founder & Feedback – AnderOS</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #fdfdfd;
       margin: 0;
-      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9f9f9;
       color: #333;
     }
 
@@ -31,164 +28,63 @@
     }
 
     header {
-      background-color: #fff;
-      padding: 1.5rem 1rem;
+      background: linear-gradient(to right, #007acc, #00bcd4);
+      color: white;
+      padding: 2rem;
       text-align: center;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
 
-    h1 {
-      margin: 0;
-      font-size: 2rem;
-    }
-
     .tagline {
       font-style: italic;
-      color: #666;
+      font-size: 1.2rem;
       margin-top: 0.5rem;
     }
 
-    #founder-splash {
-      background: linear-gradient(to right, #e0f7fa, #f1f8e9);
-      padding: 2rem 1rem;
-      text-align: center;
-      border-bottom: 2px solid #ccc;
-    }
-
-    .badge h2 {
-      font-size: 1.8rem;
-      margin-bottom: 0.5rem;
-      color: #007acc;
-    }
-
-    .badge .mission {
-      font-weight: bold;
-      font-size: 1.1rem;
-      color: #444;
-    }
-
-    .badge .quote {
-      font-style: italic;
-      color: #666;
-      margin-top: 0.5rem;
-    }
-
-    section {
-      max-width: 700px;
+    main {
+      max-width: 800px;
       margin: 2rem auto;
-      padding: 0 1rem;
-    }
-
-    h2 {
-      margin-top: 2rem;
-    }
-
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-
-    input, textarea {
-      padding: 0.75rem;
-      font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-    }
-
-    button {
-      padding: 0.75rem;
-      font-size: 1rem;
-      background-color: #007acc;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: #005fa3;
+      padding: 1rem;
+      background-color: white;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      border-radius: 8px;
     }
 
     footer {
       text-align: center;
       padding: 1rem;
-      background-color: #f0f0f0;
+      background-color: #007acc;
+      color: white;
       margin-top: 2rem;
-      font-size: 0.9rem;
-    }
-
-    footer a {
-      color: #007acc;
-      text-decoration: none;
-    }
-
-    footer a:hover {
-      text-decoration: underline;
     }
   </style>
 </head>
 <body>
+
   <nav>
     <a href="index.html">Home</a>
+    <a href="download.html">Download</a>
     <a href="marketplace.html">Marketplace</a>
+    <a href="info.html">System Info</a>
     <a href="founder.html">Founder & Feedback</a>
-    <a href="download.html">Download & Links</a>
-    <a href="info.html">Info</a>
   </nav>
 
   <header>
     <h1>Founder & Feedback</h1>
-    <p class="tagline">Built by Austin Anderson — for legacy, creativity, and community</p>
+    <p class="tagline">Meet the creator and share your thoughts.</p>
   </header>
 
-  <section id="founder-splash">
-    <div class="badge">
-      <h2>🛠️ Built with Austin’s Vision</h2>
-      <p class="mission">Modular. Ethical. Legacy-driven.</p>
-      <p class="quote">“Every system should reflect the soul of its creator — and invite others to shape it.”</p>
-    </div>
-  </section>
+  <main>
+    <h2>About the Founder</h2>
+    <p>Austin Anderson is the visionary behind AnderOS — a modular, legacy-driven operating system built with ethical design and community in mind.</p>
 
-  <section>
-    <h2>Founder’s Note</h2>
-    <p>
-      AnderOS began as a dream to build a modular, meaningful operating system that rewards creativity and contribution. I’m Austin Anderson, and I believe in systems that evolve through honest input, shared ownership, and ethical design.
-    </p>
-    <p>
-      If you’ve got ideas, feedback, or code improvements — I want to hear them. This page is your portal to help shape AnderOS.
-    </p>
-
-    <h2>Send Feedback or Suggestions</h2>
-    <form action="mailto:your.email@example.com" method="POST" enctype="text/plain">
-      <label for="name">Your Name:</label>
-      <input type="text" id="name" name="name" required />
-
-      <label for="message">Your Message or Suggestion:</label>
-      <textarea id="message" name="message" rows="5" required></textarea>
-
-      <button type="submit">Send to Austin</button>
-    </form>
-
-    <h2>Submit Code Improvements</h2>
-    <p>
-      If you’ve added something cool to your version of AnderOS — a theme, feature, or fix — send it my way. If I love it, I’ll include it in the next update and credit you in the changelog.
-    </p>
-    <form action="mailto:your.email@example.com" method="POST" enctype="text/plain">
-      <label for="feature">Feature Description:</label>
-      <textarea id="feature" name="feature" rows="4" required></textarea>
-
-      <label for="link">Link to Your Code (GitHub, zip, etc):</label>
-      <input type="text" id="link" name="link" required />
-
-      <button type="submit">Submit Contribution</button>
-    </form>
-  </section>
+    <h2>Feedback</h2>
+    <p>We welcome your ideas, suggestions, and encouragement. AnderOS is shaped by its users, and your voice matters.</p>
+  </main>
 
   <footer>
-    <p>Return to <a href="index.html">Home</a> or explore <a href="marketplace.html">Marketplace</a></p>
-    <p style="font-size: 0.85rem; color: #666;">AnderOS is a living system. Every idea helps it grow.</p>
+    <p>&copy; 2025 AnderOS</p>
   </footer>
+
 </body>
 </html>
