@@ -1,42 +1,87 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>AnderOS Home</title>
   <style>
-    body { font-family: Arial, sans-serif; background-color: #f9f9f9; margin: 0; padding: 0; color: #333; }
-    header, footer { text-align: center; padding: 1.5rem 1rem; background-color: #e0f7fa; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-    h1 { margin: 0; font-size: 2rem; }
-    .tagline { font-style: italic; color: #666; margin-top: 0.5rem; }
-    nav { display: flex; justify-content: center; gap: 1.5rem; background-color: #eaeaea; padding: 0.75rem; border-radius: 8px; margin-top: 1rem; }
-    nav a { text-decoration: none; color: #333; font-weight: bold; transition: color 0.3s ease; }
-    nav a:hover { color: #007acc; }
-    section { max-width: 700px; margin: 2rem auto; padding: 0 1rem; }
-    footer a { color: #007acc; text-decoration: none; }
-    footer a:hover { text-decoration: underline; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+
+    nav {
+      background-color: #007acc;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 1rem;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    header {
+      background: linear-gradient(to right, #007acc, #00bcd4);
+      color: white;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .tagline {
+      font-style: italic;
+      font-size: 1.2rem;
+      margin-top: 0.5rem;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background-color: white;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      border-radius: 8px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: #007acc;
+      color: white;
+      margin-top: 2rem;
+    }
   </style>
 </head>
 <body>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="download.html">Download</a>
+    <a href="marketplace.html">Marketplace</a>
+    <a href="info.html">System Info</a>
+    <a href="founder.html">Founder & Feedback</a>
+  </nav>
+
   <header>
     <h1>Welcome to AnderOS</h1>
-    <p class="tagline">Modular. Personal. Yours.</p>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="download.html">Download & Links</a>
-      <a href="info.html">Info</a>
-      <a href="marketplace.html">Marketplace</a>
-      <a href="founder.html">Founder & Feedback</a>
-    </nav>
+    <p class="tagline">Modular, legacy-driven, and built for impact.</p>
   </header>
 
-  <section>
-    <h2>What is AnderOS?</h2>
-    <p>AnderOS is a customizable operating system designed for creativity, contribution, and legacy. Built by Austin Anderson, it rewards users with badges, tracks installs, and evolves through community input.</p>
-  </section>
+  <main>
+    <h2>About AnderOS</h2>
+    <p>AnderOS is a customizable operating system designed by Austin Anderson to inspire creativity, ethical design, and community-driven evolution.</p>
+  </main>
 
   <footer>
-    <p>Explore the architecture on <a href="https://github.com/YOUR_USERNAME">GitHub</a></p>
+    <p>&copy; 2025 AnderOS</p>
   </footer>
+
 </body>
 </html>
