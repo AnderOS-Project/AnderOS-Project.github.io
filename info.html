@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>AnderOS System Info</title>
+  <title>Info – AnderOS</title>
   <style>
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background-color: #f9f9f9;
+      background-color: #f4f4f4;
       color: #333;
     }
 
@@ -58,20 +58,23 @@
       margin-top: 2rem;
     }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
+    h2 {
+      margin-top: 2rem;
+    }
+
+    .countdown {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #007acc;
       margin-top: 1rem;
     }
 
-    th, td {
-      padding: 0.75rem;
-      border: 1px solid #ccc;
-      text-align: left;
+    ul {
+      padding-left: 1.5rem;
     }
 
-    th {
-      background-color: #e0f7fa;
+    li {
+      margin-bottom: 0.5rem;
     }
   </style>
 </head>
@@ -81,39 +84,58 @@
     <a href="index.html">Home</a>
     <a href="download.html">Download</a>
     <a href="marketplace.html">Marketplace</a>
-    <a href="info.html">System Info</a>
+    <a href="info.html">Info</a>
     <a href="founder.html">Founder & Feedback</a>
   </nav>
 
   <header>
     <h1>System Info</h1>
-    <p class="tagline">Technical details and OS architecture.</p>
+    <p class="tagline">Technical details, countdowns, and requirements.</p>
   </header>
 
   <main>
-    <h2>Core Specifications</h2>
-    <table>
-      <tr>
-        <th>Component</th>
-        <th>Details</th>
-      </tr>
-      <tr>
-        <td>Kernel</td>
-        <td>Custom modular microkernel</td>
-      </tr>
-      <tr>
-        <td>UI Framework</td>
-        <td>HTML/CSS-based with theme support</td>
-      </tr>
-      <tr>
-        <td>Storage</td>
-        <td>Flat-file system with JSON config layers</td>
-      </tr>
-      <tr>
-        <td>Boot Method</td>
-        <td>Scripted bootloader with legacy fallback</td>
-      </tr>
-    </table>
+    <h2>Founder’s Year Countdown</h2>
+    <p>This countdown marks one year from a key milestone in AnderOS development.</p>
+    <div class="countdown" id="countdownDisplay">Loading countdown...</div>
+
+    <script>
+      // Set your milestone date here (YYYY-MM-DD format)
+      const milestoneDate = new Date("2025-08-14");
+      const targetDate = new Date(milestoneDate);
+      targetDate.setFullYear(targetDate.getFullYear() + 1);
+
+      function updateCountdown() {
+        const now = new Date();
+        const timeLeft = targetDate - now;
+
+        if (timeLeft <= 0) {
+          document.getElementById("countdownDisplay").textContent = "The Founder’s Year has completed!";
+          return;
+        }
+
+        const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((timeLeft / (1000 * 60)) % 60);
+        const seconds = Math.floor((timeLeft / 1000) % 60);
+
+        document.getElementById("countdownDisplay").textContent =
+          `${days}d ${hours}h ${minutes}m ${seconds}s remaining`;
+      }
+
+      setInterval(updateCountdown, 1000);
+      updateCountdown();
+    </script>
+
+    <h2>AnderOS Requirements</h2>
+    <p>These are the current system requirements for running AnderOS. You can adjust them later as needed:</p>
+    <ul>
+      <li>🧠 Minimum 1 GHz processor (x86 or ARM)</li>
+      <li>💾 At least 512 MB RAM (1 GB recommended)</li>
+      <li>🖥️ 800x600 screen resolution or higher</li>
+      <li>📦 500 MB of free disk space</li>
+      <li>🌐 Optional: Internet connection for updates and marketplace access</li>
+      <li>🧩 Supports modular components and legacy compatibility</li>
+    </ul>
   </main>
 
   <footer>
