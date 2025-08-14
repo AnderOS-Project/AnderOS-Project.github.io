@@ -1,45 +1,78 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>AnderOS Marketplace</title>
   <style>
-    body { font-family: Arial, sans-serif; background-color: #f9f9f9; margin: 0; padding: 0; color: #333; }
-    header, footer { text-align: center; padding: 1.5rem 1rem; background-color: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-    h1 { margin: 0; font-size: 2rem; }
-    .tagline { font-style: italic; color: #666; margin-top: 0.5rem; }
-    nav { display: flex; justify-content: center; gap: 1.5rem; background-color: #eaeaea; padding: 0.75rem; border-radius: 8px; margin-top: 1rem; }
-    nav a { text-decoration: none; color: #333; font-weight: bold; transition: color 0.3s ease; }
-    nav a:hover { color: #007acc; }
-    section { max-width: 700px; margin: 2rem auto; padding: 0 1rem; }
-    .badge-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-top: 1rem; }
-    .badge { background-color: #fff; padding: 1rem; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); text-align: center; }
-    .badge h3 { margin: 0.5rem 0; font-size: 1rem; }
-    .badge p { font-size: 0.85rem; color: #555; }
-    footer a { color: #007acc; text-decoration: none; }
-    footer a:hover { text-decoration: underline; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+
+    nav {
+      background-color: #007acc;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 1rem;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    header {
+      background: linear-gradient(to right, #007acc, #00bcd4);
+      color: white;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .tagline {
+      font-style: italic;
+      font-size: 1.2rem;
+      margin-top: 0.5rem;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background-color: white;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      border-radius: 8px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: #007acc;
+      color: white;
+      margin-top: 2rem;
+    }
+
+    .item {
+      margin-bottom: 1.5rem;
+    }
+
+    .item h3 {
+      margin-bottom: 0.3rem;
+    }
+
+    .item p {
+      margin: 0;
+    }
   </style>
 </head>
 <body>
-  <header>
-    <h1>AnderOS Marketplace</h1>
-    <p class="tagline">Earn, trade, and unlock your legacy</p>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="download.html">Download & Links</a>
-      <a href="info.html">Info</a>
-      <a href="marketplace.html">Marketplace</a>
-      <a href="founder.html">Founder & Feedback</a>
-    </nav>
-  </header>
 
-  <section>
-    <p>
-      The AnderOS Marketplace is where users exchange tokens for rare badges, theme packs, and reputation upgrades. Every badge tells a story — earned through installs, referrals, or creative contributions. Tokens are awarded for honest engagement and can be traded or saved to unlock legacy tiers.
-    </p>
-
-    <h2>Featured Badges</h2>
-    <div class="badge-grid">
-      <div class="badge">
-        <h3>First Install</h
+  <nav>
+    <a href="index.html">Home</a>
+    <a href
