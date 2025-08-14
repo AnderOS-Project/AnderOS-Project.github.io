@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Download AnderOS</title>
+  <title>Download – AnderOS</title>
   <style>
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background-color: #f9f9f9;
+      background-color: #f4f4f4;
       color: #333;
     }
 
@@ -42,7 +42,7 @@
     }
 
     main {
-      max-width: 800px;
+      max-width: 900px;
       margin: 2rem auto;
       padding: 1rem;
       background-color: white;
@@ -50,12 +50,35 @@
       border-radius: 8px;
     }
 
-    footer {
-      text-align: center;
+    section {
+      margin-bottom: 2rem;
+    }
+
+    h2 {
+      color: #007acc;
+    }
+
+    .download-box {
+      background-color: #e0f7fa;
       padding: 1rem;
+      border-left: 4px solid #007acc;
+      border-radius: 6px;
+      margin-bottom: 1rem;
+    }
+
+    .download-box a {
+      display: inline-block;
+      margin-top: 0.5rem;
+      padding: 0.4rem 0.8rem;
       background-color: #007acc;
       color: white;
-      margin-top: 2rem;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+
+    .download-box a:hover {
+      background-color: #005f99;
     }
 
     ul {
@@ -65,6 +88,14 @@
     li {
       margin-bottom: 0.5rem;
     }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: #007acc;
+      color: white;
+      margin-top: 2rem;
+    }
   </style>
 </head>
 <body>
@@ -73,27 +104,67 @@
     <a href="index.html">Home</a>
     <a href="download.html">Download</a>
     <a href="marketplace.html">Marketplace</a>
-    <a href="info.html">System Info</a>
+    <a href="info.html">Info</a>
     <a href="founder.html">Founder & Feedback</a>
   </nav>
 
   <header>
     <h1>Download AnderOS</h1>
-    <p class="tagline">Modular, customizable, and ready to evolve.</p>
+    <p class="tagline">Choose your build and start your journey.</p>
   </header>
 
   <main>
-    <h2>Latest Builds</h2>
-    <ul>
-      <li><a href="#">AnderOS v1.0 Installer</a></li>
-      <li><a href="#">AnderOS v1.0 Source Code</a></li>
-    </ul>
+    <section>
+      <h2>Available Builds</h2>
 
-    <h2>Developer Tools</h2>
-    <ul>
-      <li><a href="#">Theme Pack Creator</a></li>
-      <li><a href="#">Module Builder</a></li>
-    </ul>
+      <div class="download-box">
+        <strong>Stable Release</strong>
+        <p>Recommended for most users. Fully tested and ready for daily use.</p>
+        <a href="#">Download Stable</a>
+      </div>
+
+      <div class="download-box">
+        <strong>Developer Build</strong>
+        <p>Includes experimental features. May be unstable but great for testing.</p>
+        <a href="#">Download Dev</a>
+      </div>
+
+      <div class="download-box">
+        <strong>Legacy Build</strong>
+        <p>Optimized for older hardware and systems. Preserves compatibility.</p>
+        <a href="#">Download Legacy</a>
+      </div>
+    </section>
+
+    <section>
+      <h2>Installation Instructions</h2>
+      <ul>
+        <li>Download the ISO or ZIP file for your build</li>
+        <li>Use a USB tool (like Rufus or BalenaEtcher) to create a bootable drive</li>
+        <li>Boot your device from USB and follow the setup prompts</li>
+        <li>For legacy systems, use the minimal install option</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Safety & Ethics</h2>
+      <p>AnderOS is built with respect for your privacy. No tracking, no data harvesting, no hidden agendas. You control your system — always.</p>
+    </section>
+
+    <section>
+      <h2>Founder’s Note</h2>
+      <p>“This OS is my way of showing what’s possible when you mix passion, purpose, and persistence. I built AnderOS to be more than software — it’s a legacy. Thanks for being part of it.” — Austin Anderson</p>
+    </section>
+
+    <section>
+      <h2>Coming Soon</h2>
+      <ul>
+        <li>🎮 Badge system and achievement tracker</li>
+        <li>🛍️ Marketplace for modules and themes</li>
+        <li>📜 Changelog with visual history</li>
+        <li>🌐 Community contributor portal</li>
+      </ul>
+    </section>
   </main>
 
   <footer>
