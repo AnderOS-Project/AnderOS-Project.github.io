@@ -1,83 +1,192 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AnderOS Info</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Founder & Feedback – AnderOS</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f9f9f9; color: #333; }
-    header { text-align: center; padding: 1.5rem 1rem; background-color: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-    h1 { margin: 0; font-size: 2rem; }
-    .tagline { font-style: italic; color: #666; margin-top: 0.5rem; }
-    nav { display: flex; justify-content: center; gap: 1.5rem; background-color: #eaeaea; padding: 0.75rem; border-radius: 8px; margin-top: 1rem; }
-    nav a { text-decoration: none; color: #333; font-weight: bold; transition: color 0.3s ease; }
-    nav a:hover { color: #007acc; }
-    section { max-width: 700px; margin: 2rem auto; padding: 0 1rem; }
-    footer { text-align: center; padding: 1rem; background-color: #f0f0f0; margin-top: 2rem; font-size: 0.9rem; }
-    footer a { color: #007acc; text-decoration: none; }
-    footer a:hover { text-decoration: underline; }
-    #founders-year { background-color: #fffbe6; border-left: 4px solid #ffc107; padding: 1rem; margin-top: 2rem; border-radius: 8px; }
-    #countdown { font-weight: bold; margin-top: 0.5rem; }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fdfdfd;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    nav {
+      background-color: #007acc;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 1rem;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 1.5rem 1rem;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    .tagline {
+      font-style: italic;
+      color: #666;
+      margin-top: 0.5rem;
+    }
+
+    #founder-splash {
+      background: linear-gradient(to right, #e0f7fa, #f1f8e9);
+      padding: 2rem 1rem;
+      text-align: center;
+      border-bottom: 2px solid #ccc;
+    }
+
+    .badge h2 {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      color: #007acc;
+    }
+
+    .badge .mission {
+      font-weight: bold;
+      font-size: 1.1rem;
+      color: #444;
+    }
+
+    .badge .quote {
+      font-style: italic;
+      color: #666;
+      margin-top: 0.5rem;
+    }
+
+    section {
+      max-width: 700px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    h2 {
+      margin-top: 2rem;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    input, textarea {
+      padding: 0.75rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    button {
+      padding: 0.75rem;
+      font-size: 1rem;
+      background-color: #007acc;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #005fa3;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: #f0f0f0;
+      margin-top: 2rem;
+      font-size: 0.9rem;
+    }
+
+    footer a {
+      color: #007acc;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="marketplace.html">Marketplace</a>
+    <a href="founder.html">Founder & Feedback</a>
+  </nav>
+
   <header>
-    <h1>AnderOS System Info</h1>
-    <p class="tagline">Built for customization and legacy</p>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="download.html">Download & Links</a>
-      <a href="info.html">Info</a>
-      <a href="marketplace.html">Marketplace</a>
-      <a href="founder.html">Founder & Feedback</a>
-    </nav>
+    <h1>Founder & Feedback</h1>
+    <p class="tagline">Built by Austin Anderson — for legacy, creativity, and community</p>
   </header>
 
+  <section id="founder-splash">
+    <div class="badge">
+      <h2>🛠️ Built with Austin’s Vision</h2>
+      <p class="mission">Modular. Ethical. Legacy-driven.</p>
+      <p class="quote">“Every system should reflect the soul of its creator — and invite others to shape it.”</p>
+    </div>
+  </section>
+
   <section>
-    <h2>Core Features</h2>
-    <ul>
-      <li>Modular architecture with theme packs and install zones</li>
-      <li>Badge-based reputation system for contributors</li>
-      <li>Referral mechanics and legacy tracking</li>
-      <li>Hidden logic onboarding quiz for personalized setup</li>
-    </ul>
+    <h2>Founder’s Note</h2>
+    <p>
+      AnderOS began as a dream to build a modular, meaningful operating system that rewards creativity and contribution. I’m Austin Anderson, and I believe in systems that evolve through honest input, shared ownership, and ethical design.
+    </p>
+    <p>
+      If you’ve got ideas, feedback, or code improvements — I want to hear them. This page is your portal to help shape AnderOS.
+    </p>
 
-    <h2>System Requirements</h2>
-    <ul>
-      <li>Minimum: 512MB RAM, 1GHz CPU</li>
-      <li>Recommended: 2GB RAM, 64-bit CPU</li>
-      <li>Supports real hardware install tracking</li>
-    </ul>
+    <h2>Send Feedback or Suggestions</h2>
+    <form action="mailto:your.email@example.com" method="POST" enctype="text/plain">
+      <label for="name">Your Name:</label>
+      <input type="text" id="name" name="name" required />
 
-    <section id="founders-year">
-      <h2>Founders Year Tracker</h2>
-      <p>
-        The Founders Year is a one-time opportunity to join the AnderOS mission as a legacy builder. Anyone who installs during this 365-day window receives lifetime access and the rare Founders Badge.
-      </p>
-      <p id="countdown"></p>
-      <p style="font-style: italic; color: #555; margin-top: 1rem;">
-        System architect: Austin Anderson — established August 14, 2025
-      </p>
-    </section>
+      <label for="message">Your Message or Suggestion:</label>
+      <textarea id="message" name="message" rows="5" required></textarea>
+
+      <button type="submit">Send to Austin</button>
+    </form>
+
+    <h2>Submit Code Improvements</h2>
+    <p>
+      If you’ve added something cool to your version of AnderOS — a theme, feature, or fix — send it my way. If I love it, I’ll include it in the next update and credit you in the changelog.
+    </p>
+    <form action="mailto:your.email@example.com" method="POST" enctype="text/plain">
+      <label for="feature">Feature Description:</label>
+      <textarea id="feature" name="feature" rows="4" required></textarea>
+
+      <label for="link">Link to Your Code (GitHub, zip, etc):</label>
+      <input type="text" id="link" name="link" required />
+
+      <button type="submit">Submit Contribution</button>
+    </form>
   </section>
 
   <footer>
-    <p>Explore the architecture on <a href="https://github.com/YOUR_USERNAME">GitHub</a></p>
+    <p>Return to <a href="index.html">Home</a> or explore <a href="marketplace.html">Marketplace</a></p>
+    <p style="font-size: 0.85rem; color: #666;">AnderOS is a living system. Every idea helps it grow.</p>
   </footer>
-
-  <script>
-    const launchDate = new Date("2025-08-14T00:00:00Z");
-    const now = new Date();
-    const msInDay = 1000 * 60 * 60 * 24;
-    const daysPassed = Math.floor((now - launchDate) / msInDay);
-    const daysLeft = 365 - daysPassed;
-    const countdownElement = document.getElementById("countdown");
-
-    if (daysLeft > 0) {
-      countdownElement.textContent = `${daysLeft} days left in Founders Year. Install now to receive lifetime access and the Founders Badge.`;
-    } else {
-      countdownElement.textContent = `Founders Year is over. New explorers support the mission with a small contribution ($1–$10) and unlock access through the journey.`;
-    }
-  </script>
 </body>
 </html>
