@@ -11,12 +11,11 @@
       transition: background-color 0.5s, color 0.5s;
     }
 
-    /* Login Screen */
-    #login-screen {
+    /* Screens */
+    #login-screen, #setup-quiz, #welcome-screen {
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: linear-gradient(to bottom right, #2c2c3c, #1a1a2a);
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -24,12 +23,24 @@
       z-index: 999;
     }
 
-    #login-box {
-      background: #333;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    #login-screen {
+      background: linear-gradient(to bottom right, #2c2c3c, #1a1a2a);
+    }
+
+    #setup-quiz {
+      background: #222;
+      color: white;
+      z-index: 998;
+      padding: 20px;
       text-align: center;
+    }
+
+    #welcome-screen {
+      background: #000;
+      color: #0f0;
+      font-family: monospace;
+      font-size: 24px;
+      z-index: 997;
     }
 
     #login-box input {
@@ -51,27 +62,6 @@
       cursor: pointer;
     }
 
-    /* Setup Quiz */
-    #setup-quiz {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: #222;
-      color: white;
-      z-index: 998;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 20px;
-    }
-
-    .question {
-      margin-bottom: 30px;
-    }
-
     .option {
       margin: 8px;
       padding: 10px 20px;
@@ -86,44 +76,69 @@
       background: rgba(255,255,255,0.1);
     }
 
-    /* Welcome Animation */
-    #welcome-screen {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: #000;
-      color: #0f0;
-      font-family: monospace;
-      font-size: 24px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 997;
-    }
-
     /* Desktop */
     #desktop {
       display: none;
       padding: 20px;
     }
 
-    #taskbar {
+    .taskbar {
       position: fixed;
       bottom: 0;
-      left: 0;
       width: 100%;
-      background: #222;
+      background: #2c2c3c;
+      display: flex;
+      justify-content: center;
       padding: 10px;
-      text-align: center;
-      border-top: 1px solid #444;
+      gap: 15px;
+      z-index: 1000;
+    }
+
+    .app-icon {
+      background: #3c3c4c;
+      border: none;
+      color: #fff;
+      padding: 10px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .window {
+      position: absolute;
+      top: 80px;
+      left: 80px;
+      background: #2a2a3a;
+      border: 1px solid #444;
+      border-radius: 8px;
+      padding: 20px;
+      width: 300px;
+      z-index: 999;
+      cursor: move;
       color: white;
+    }
+
+    .window h2 {
+      margin-top: 0;
+      font-size: 18px;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      background: #ff4c4c;
+      border: none;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
 
-  <!-- Login Screen -->
+  <!-- Login -->
   <div id="login-screen">
     <div id="login-box">
       <h2>Welcome to AnderOS</h2>
@@ -134,24 +149,23 @@
   </div>
 
   <!-- Setup Quiz -->
-  <div id="setup-quiz">
+  <div id="setup-quiz" style="display:none;">
     <div id="quiz-content"></div>
   </div>
 
   <!-- Welcome Animation -->
-  <div id="welcome-screen">
+  <div id="welcome-screen" style="display:none;">
     <span id="welcome-text"></span>
   </div>
 
   <!-- Desktop -->
   <div id="desktop">
-    <h1>AnderOS Desktop</h1>
-    <p>Your environment is ready.</p>
-  </div>
-
-  <!-- Taskbar -->
-  <div id="taskbar">
-    <span>Taskbar | Modules | Settings</span>
+    <div class="taskbar">
+      <button class="app-icon" onclick="openFileManager()">📁</button>
+      <button class="app-icon" onclick="openBadgeVault()">🎖</button>
+      <button class="app-icon" onclick="openTextEditor()">📝</button>
+      <button class="app-icon" onclick="toggleTheme()">🌓</button>
+    </div>
   </div>
 
   <script>
@@ -272,7 +286,135 @@
           break;
       }
     }
-  </script>
 
+    function dragElement(elmnt) {
+      let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+      elmnt.onmousedown = dragMouseDown;
+      function dragMouseDown(e) {
+        e.preventDefault();
+        pos3 = e.clientX;
+        pos4 = e.client
+        pos4 = e.clientY;
+        document.onmouseup = closeDragElement;
+        document.onmousemove = elementDrag;
+      }
+
+      function elementDrag(e) {
+        e.preventDefault();
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+      }
+
+      function closeDragElement() {
+        document.onmouseup = null;
+        document.onmousemove = null;
+      }
+    }
+
+    function openFileManager() {
+      const win = document.createElement('div');
+      win.className = 'window';
+      win.innerHTML = `
+        <button class="close-btn" onclick="this.parentElement.remove()"></button>
+        <h2>File Manager</h2>
+        <ul id="file-list"></ul>
+        <button onclick="addFile()">Add File</button>
+      `;
+      document.body.appendChild(win);
+      dragElement(win);
+      renderFiles();
+    }
+
+    function addFile() {
+      const files = JSON.parse(localStorage.getItem('files') || '[]');
+      const newFile = 'File_' + (files.length + 1);
+      files.push(newFile);
+      localStorage.setItem('files', JSON.stringify(files));
+      renderFiles();
+    }
+
+    function renderFiles() {
+      const list = document.getElementById('file-list');
+      if (!list) return;
+      const files = JSON.parse(localStorage.getItem('files') || '[]');
+      list.innerHTML = '';
+      files.forEach(file => {
+        const li = document.createElement('li');
+        li.textContent = file;
+        list.appendChild(li);
+      });
+    }
+
+    function openTextEditor() {
+      const win = document.createElement('div');
+      win.className = 'window';
+      win.innerHTML = `
+        <button class="close-btn" onclick="this.parentElement.remove()"></button>
+        <h2>Text Editor</h2>
+        <textarea id="editor" rows="8" cols="30"></textarea><br>
+        <button onclick="saveText()">Save</button>
+        <button onclick="loadText()">Load</button>
+      `;
+      document.body.appendChild(win);
+      dragElement(win);
+      loadText();
+    }
+
+    function saveText() {
+      const text = document.getElementById('editor')?.value;
+      if (text !== undefined) {
+        localStorage.setItem('savedText', text);
+        unlockBadge("Text Saver");
+      }
+    }
+
+    function loadText() {
+      const text = localStorage.getItem('savedText') || '';
+      const editor = document.getElementById('editor');
+      if (editor) editor.value = text;
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle('light-theme');
+      unlockBadge("Theme Toggler");
+    }
+
+    function openBadgeVault() {
+      const win = document.createElement('div');
+      win.className = 'window';
+      win.innerHTML = `
+        <button class="close-btn" onclick="this.parentElement.remove()"></button>
+        <h2>Badge Vault</h2>
+        <ul id="badge-list"></ul>
+      `;
+      document.body.appendChild(win);
+      dragElement(win);
+      renderBadges();
+    }
+
+    function unlockBadge(name) {
+      const badges = JSON.parse(localStorage.getItem('badges') || '[]');
+      if (!badges.includes(name)) {
+        badges.push(name);
+        localStorage.setItem('badges', JSON.stringify(badges));
+        renderBadges();
+      }
+    }
+
+    function renderBadges() {
+      const list = document.getElementById('badge-list');
+      if (!list) return;
+      const badges = JSON.parse(localStorage.getItem('badges') || '[]');
+      list.innerHTML = '';
+      badges.forEach(b => {
+        const li = document.createElement('li');
+        li.textContent = b;
+        list.appendChild(li);
+      });
+    }
+  </script>
 </body>
-</html>
