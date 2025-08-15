@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AnderOS Demo</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #1e1e2f;
+      color: #fff;
+      overflow: hidden;
+    }
+    .taskbar {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background: #2c2c3c;
+      display: flex;
+      justify-content: center;
+      padding: 10px;
+      gap: 15px;
+      z-index: 1000;
+    }
+    .app-icon {
+      background: #3c3c4c;
+      border: none;
+      color: #fff;
+      padding: 10px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.2s;
+    }
+    .app-icon:hover {
+      background: #505060;
+    }
+    .window {
+      position: absolute;
+      top: 80px;
+      left: 80px;
+      background: #2a2a3a;
+      border: 1px solid #444;
+      border-radius: 8px;
+      padding: 20px;
+      width: 300px;
+      z-index: 999;
+      cursor: move;
+    }
+    .window h2 {
+      margin-top: 0;
+      font-size: 18px;
+    }
+    .close-btn {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      background: #ff4c4c;
+      border: none;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+    .modal-content {
+      background: #2a2a3a;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      border: 1px solid #555;
+    }
+    .modal-content h3 {
+      margin: 0 0 10px;
+    }
+    .modal-content button {
+      margin-top: 15px;
+      padding: 8px 16px;
+      background: #505060;
+      border: none;
+      border-radius: 6px;
+      color: #fff;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="taskbar">
+    <button class="app-icon" onclick="openWindow('File Manager')">📁</button>
+    <button class="app-icon" onclick="openWindow('Badge Vault')">🎖</button>
+    <button class="app-icon" onclick="openWindow('Text Editor')">📝</button>
+    <button class="app-icon" onclick="showModal()">🧪</button>
+    <button class="app-icon" onclick="showModal()">⚙️</button>
+    <button class="app-icon" onclick="showModal()">💻</button>
+  </div>
+
+  <div id="modal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <h3>This app is not available in demo mode.</h3>
+      <button onclick="closeModal()">OK</button>
+    </div>
+  </div>
+
+  <script>
+    function openWindow(title) {
+      const win = document.createElement('div');
+      win.className = 'window';
+      win.innerHTML = `
+        <button class="close-btn" onclick="this.parentElement.remove()"></button>
+        <h2>${title}</h2>
+        <p>Welcome to the ${title} app!</p>
+      `;
+      document.body.appendChild(win);
+      dragElement(win);
+    }
+
+    function showModal() {
+      document.getElementById('modal').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('modal').style.display = 'none';
+    }
+
+    function dragElement(elmnt) {
+      let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+      elmnt.onmousedown = dragMouseDown;
+
+      function dragMouseDown(e) {
+        e.preventDefault();
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        document.onmouseup = closeDragElement;
+        document.onmousemove = elementDrag;
+      }
+
+      function elementDrag(e) {
+        e.preventDefault();
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+      }
+
+      function closeDragElement() {
+        document.onmouseup = null;
+        document.onmousemove = null;
+      }
+    }
+  </script>
+
+</body>
+</html>
