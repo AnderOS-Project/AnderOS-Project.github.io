@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AnderOS Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    :root {
+      --bg-light: #f0f0f0;
+      --bg-dark: #121212;
+      --text-light: #000;
+      --text-dark: #fff;
+      --accent: #00ffe0;
+      --window-bg: #fff;
+      --window-dark-bg: #1e1e1e;
+    }
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      transition: background 0.3s, color 0.3s;
+      overflow: hidden;
+    }
+    .light {
+      background: var(--bg-light);
+      color: var(--text-light);
+    }
+    .dark {
+      background: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    nav {
+      background: var(--accent);
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      font-weight: bold;
+    }
+    nav a {
+      color: black;
+      text-decoration: none;
+    }
+
+    .centered {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .taskbar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 40px;
+      background: rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      z-index: 1000;
+    }
+
+    .window {
+      position: absolute;
+      top: 100px;
+      left: 100px;
+      width: 300px;
+      background: var(--window-bg);
+      border: 2px solid var(--accent);
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      z-index: 999;
+      resize: both;
+      overflow: auto;
+    }
+    .dark .window {
+      background: var(--window-dark-bg);
+      color: white;
+    }
+    .window-header {
+      background: var(--accent);
+      padding: 5px;
+      cursor: move;
+      font-weight: bold;
+    }
+    .window-content {
+      padding: 10px;
+    }
+
+    .app-launcher {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 2rem;
+    }
+    .app-icon {
+      width: 80px;
+      height: 80px;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 10px;
+    }
+
+    #modal {
+      position: fixed;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 2rem;
+      border: 2px solid black;
+      display: none;
+      z-index: 2000;
+    }
+
+    #loginScreen, #setupWizard, #desktop {
+      display: none;
+    }
+    .active {
+      display: block;
+    }
+  </style>
+</head>
+<body class="light">
+  <!-- 🧭 Navigation -->
+  <nav>
+    <a href="index.html">🏠 Home</a>
+    <a href="download.html">⬇️ Download</a>
+    <a href="marketplace.html">🛍 Marketplace</a>
+    <a href="info.html">ℹ️ Info</a>
+    <a href="founder.html">👤 Founder & Feedback</a>
+    <a href="demo.html">🧪 Try a Demo</a>
+  </nav>
+
+  <!-- 🔐 Login Screen -->
+  <div id="loginScreen" class="centered active">
+    <h1>Welcome to AnderOS</h1>
+    <p>Enter demo mode</p>
+    <button onclick="showSetup()">Continue</button>
+  </div>
+
+  <!-- 🧙 Setup Wizard -->
+  <div id="setupWizard" class="centered">
+    <h2>Select Theme</h2>
+    <button onclick="setTheme('light')">🌞 Light</button>
+    <button onclick="setTheme('dark')">🌌 Dark</button>
+    <br><br>
+    <button onclick="launchDesktop()">Launch Demo</button>
+  </div>
+
+  <!-- 🖥️ Desktop -->
+  <div id="desktop">
+    <div class="app-launcher">
+      <div class="app-icon" onclick="openApp('fileManager')">📁</div>
+      <div class="app-icon" onclick="openApp('textEditor')">📝</div>
+      <div class="app-icon" onclick="openApp('badgeVault')">🏅</div>
+      <div class="app-icon" onclick="showModal()">🛠</div>
+    </div>
+    <div class="taskbar">🧭 AnderOS Taskbar</div>
+  </div>
+
+  <!-- 🚫 Modal -->
+  <div id="modal">
+    <p>This app is not available in demo mode.</p>
+    <button onclick="hideModal()">Close</button>
+  </div>
+
+  <!-- 📁 File Manager -->
+  <div id="fileManager" class="window" style="display:none;">
+    <div class="window-header" onmousedown="dragWindow(event, this)">📁 File Manager</div>
+    <div class="window-content">
+      <p>Documents</p>
+      <ul>
+        <li>legacy.txt</li>
+        <li>vision.md</li>
+        <li>demo.log</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 📝 Text Editor -->
+  <div id="textEditor" class="window" style="display:none;">
+    <div class="window-header" onmousedown="dragWindow(event, this)">📝 Text Editor</div>
+    <div class="window-content">
+      <textarea rows="8" cols="30">Write your legacy...</textarea>
+    </div>
+  </div>
+
+  <!-- 🏅 Badge Vault -->
+  <div id="badgeVault" class="window" style="display:none;">
+    <div class="window-header" onmousedown="dragWindow(event, this)">🏅 Badge Vault</div>
+    <div class="window-content">
+      <p>Earned:</p>
+      <ul>
+        <li>🚀 Launch Pioneer</li>
+        <li>🧠 Modular Architect</li>
+      </ul>
+      <p>Locked:</p>
+      <ul>
+        <li>🔒 Community Builder</li>
+        <li>🔒 Theme Master</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    function showSetup() {
+      document.getElementById('loginScreen').classList.remove('active');
+      document.getElementById('setupWizard').classList.add('active');
+    }
+
+    function setTheme(theme) {
+      document.body.classList.remove('light', 'dark');
+      document.body.classList.add(theme);
+    }
+
+    function launchDesktop() {
+      document.getElementById('setupWizard').classList.remove('active');
+      document.getElementById('desktop').classList.add('active');
+    }
+
+    function openApp(id) {
+      document.querySelectorAll('.window').forEach(win => win.style.display = 'none');
+      document.getElementById(id).style.display = 'block';
+    }
+
+    function showModal() {
+      document.getElementById('modal').style.display = 'block';
+    }
+
+    function hideModal() {
+      document.getElementById('modal').style.display = 'none';
+    }
+
+    function dragWindow(e, header) {
+      const win = header.parentElement;
+      let offsetX = e.clientX - win.offsetLeft;
+      let offsetY = e.clientY - win.offsetTop;
+
+      function move(e) {
+        win.style.left = (e.clientX - offsetX) + 'px';
+        win.style.top = (e.clientY - offsetY) + 'px';
+      }
+
+      function stop() {
+        document.removeEventListener('mousemove', move);
+        document.removeEventListener('mouseup', stop);
+      }
+
+      document.addEventListener('mousemove', move);
+      document.addEventListener('mouseup', stop);
+    }
+  </script>
+</body>
+</html>
+``
