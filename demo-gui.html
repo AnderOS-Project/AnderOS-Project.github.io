@@ -11,6 +11,11 @@
       background: #1e1e2f;
       color: #fff;
       overflow: hidden;
+      transition: background 0.3s, color 0.3s;
+    }
+    .light-theme {
+      background: #f0f0f0;
+      color: #222;
     }
     .taskbar {
       position: fixed;
@@ -47,6 +52,11 @@
       width: 300px;
       z-index: 999;
       cursor: move;
+    }
+    .light-theme .window {
+      background: #fff;
+      color: #000;
+      border: 1px solid #ccc;
     }
     .window h2 {
       margin-top: 0;
@@ -99,10 +109,10 @@
 <body>
 
   <div class="taskbar">
-    <button class="app-icon" onclick="openWindow('File Manager')">📁</button>
-    <button class="app-icon" onclick="openWindow('Badge Vault')">🎖</button>
-    <button class="app-icon" onclick="openWindow('Text Editor')">📝</button>
-    <button class="app-icon" onclick="showModal()">🧪</button>
+    <button class="app-icon" onclick="openFileManager()">📁</button>
+    <button class="app-icon" onclick="openBadgeVault()">🎖</button>
+    <button class="app-icon" onclick="openTextEditor()">📝</button>
+    <button class="app-icon" onclick="toggleTheme()">🌓</button>
     <button class="app-icon" onclick="showModal()">⚙️</button>
     <button class="app-icon" onclick="showModal()">💻</button>
   </div>
@@ -115,18 +125,6 @@
   </div>
 
   <script>
-    function openWindow(title) {
-      const win = document.createElement('div');
-      win.className = 'window';
-      win.innerHTML = `
-        <button class="close-btn" onclick="this.parentElement.remove()"></button>
-        <h2>${title}</h2>
-        <p>Welcome to the ${title} app!</p>
-      `;
-      document.body.appendChild(win);
-      dragElement(win);
-    }
-
     function showModal() {
       document.getElementById('modal').style.display = 'flex';
     }
@@ -161,6 +159,109 @@
         document.onmouseup = null;
         document.onmousemove = null;
       }
+    }
+
+    function openFileManager() {
+      const win = document.createElement('div');
+      win.className = 'window';
+      win.innerHTML = `
+        <button class="close-btn" onclick="this.parentElement.remove()"></button>
+        <h2>File Manager</h2>
+        <ul id="file-list"></ul>
+        <button onclick="addFile()">Add File</button>
+      `;
+      document.body.appendChild(win);
+      dragElement(win);
+      renderFiles();
+    }
+
+    function addFile() {
+      const files = JSON.parse(localStorage.getItem('files') || '[]');
+      const newFile = 'File_' + (files.length + 1);
+      files.push(newFile);
+      localStorage.setItem('files', JSON.stringify(files));
+      renderFiles();
+      unlockBadge("File Creator");
+    }
+
+    function renderFiles() {
+      const list = document.getElementById('file-list');
+      if (!list) return;
+      const files = JSON.parse(localStorage.getItem('files') || '[]');
+      list.innerHTML = '';
+      files.forEach(file => {
+        const li = document.createElement('li');
+        li.textContent = file;
+        list.appendChild(li);
+      });
+    }
+
+    function openTextEditor() {
+      const win = document.createElement('div');
+      win.className = 'window';
+      win.innerHTML = `
+        <button class="close-btn" onclick="this.parentElement.remove()"></button>
+        <h2>Text Editor</h2>
+        <textarea id="editor" rows="8" cols="30"></textarea><br>
+        <button onclick="saveText()">Save</button>
+        <button onclick="loadText()">Load</button>
+      `;
+      document.body.appendChild(win);
+      dragElement(win);
+      loadText();
+    }
+
+    function saveText() {
+      const text = document.getElementById('editor')?.value;
+      if (text !== undefined) {
+        localStorage.setItem('savedText', text);
+        unlockBadge("Text Saver");
+      }
+    }
+
+    function loadText() {
+      const text = localStorage.getItem('savedText') || '';
+      const editor = document.getElementById('editor');
+      if (editor) editor.value = text;
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle('light-theme');
+      unlockBadge("Theme Toggler");
+    }
+
+    function openBadgeVault() {
+      const win = document.createElement('div');
+      win.className = 'window';
+      win.innerHTML = `
+        <button class="close-btn" onclick="this.parentElement.remove()"></button>
+        <h2>Badge Vault</h2>
+        <ul id="badge-list"></ul>
+      `;
+      document.body.appendChild(win);
+      dragElement(win);
+      renderBadges();
+    }
+
+    function unlockBadge(name) {
+      const badges = JSON.parse(localStorage.getItem('badges') || '[]');
+      if (!badges.includes(name)) {
+        badges.push(name);
+        localStorage.setItem('badges', JSON.stringify(badges));
+        renderBadges();
+      }
+    }
+
+    function renderBadges() {
+      const list = document.getElementById('badge-list');
+      if (!list) return;
+      const badges = JSON.parse(localStorage.getItem('badges') || '[]');
+      list.innerHTML = '';
+      badges.forEach(b => {
+        const li = document.createElement('li');
+        li.textContent = b;
+        list.appendChild(li);
+      });
     }
   </script>
 
