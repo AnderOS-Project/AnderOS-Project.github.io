@@ -86,6 +86,22 @@
       background: rgba(255,255,255,0.1);
     }
 
+    /* Welcome Animation */
+    #welcome-screen {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: #000;
+      color: #0f0;
+      font-family: monospace;
+      font-size: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 997;
+    }
+
     /* Desktop */
     #desktop {
       display: none;
@@ -119,9 +135,12 @@
 
   <!-- Setup Quiz -->
   <div id="setup-quiz">
-    <div id="quiz-content">
-      <!-- Questions will be injected here -->
-    </div>
+    <div id="quiz-content"></div>
+  </div>
+
+  <!-- Welcome Animation -->
+  <div id="welcome-screen">
+    <span id="welcome-text"></span>
   </div>
 
   <!-- Desktop -->
@@ -209,7 +228,27 @@
       const chosenTheme = Object.entries(themeVotes).sort((a,b) => b[1] - a[1])[0][0];
       applyTheme(chosenTheme);
       document.getElementById('setup-quiz').style.display = 'none';
-      document.getElementById('desktop').style.display = 'block';
+      document.getElementById('welcome-screen').style.display = 'flex';
+      typeWriter("Welcome to AnderOS...", () => {
+        setTimeout(() => {
+          document.getElementById('welcome-screen').style.display = 'none';
+          document.getElementById('desktop').style.display = 'block';
+        }, 1000);
+      });
+    }
+
+    function typeWriter(text, callback) {
+      const el = document.getElementById('welcome-text');
+      let i = 0;
+      el.textContent = "";
+      const interval = setInterval(() => {
+        el.textContent += text.charAt(i);
+        i++;
+        if (i === text.length) {
+          clearInterval(interval);
+          if (callback) callback();
+        }
+      }, 100);
     }
 
     function applyTheme(theme) {
