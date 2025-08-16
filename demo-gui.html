@@ -2,419 +2,183 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>AnderOS Demo</title>
   <style>
     body {
       margin: 0;
       font-family: sans-serif;
-      transition: background-color 0.5s, color 0.5s;
+      background: url('lake-wallpaper.png') no-repeat center center fixed;
+      background-size: cover;
+      overflow: hidden;
     }
-
-    /* Screens */
-    #login-screen, #setup-quiz, #welcome-screen {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 999;
+    #loginScreen, #setupWizard, #welcomeScreen, #desktop {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
     }
-
-    #login-screen {
-      background: linear-gradient(to bottom right, #2c2c3c, #1a1a2a);
-    }
-
-    #setup-quiz {
-      background: #222;
+    #loginScreen, #setupWizard, #welcomeScreen {
+      background: rgba(0,0,0,0.8);
       color: white;
-      z-index: 998;
-      padding: 20px;
-      text-align: center;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      font-size: 1.2em;
     }
-
-    #welcome-screen {
-      background: #000;
-      color: #0f0;
-      font-family: monospace;
-      font-size: 24px;
-      z-index: 997;
+    input, button, select {
+      padding: 10px; font-size: 1em; margin-top: 10px;
     }
-
-    #login-box input {
-      margin: 10px 0;
-      padding: 10px;
-      width: 200px;
-      border: none;
-      border-radius: 5px;
-      font-size: 16px;
+    #taskbar {
+      position: absolute; bottom: 0; left: 0; width: 100%;
+      background: rgba(0,0,0,0.6); display: flex; padding: 5px;
+      justify-content: center; gap: 10px;
     }
-
-    #login-box button {
-      padding: 10px 20px;
-      font-size: 16px;
-      background: #4caf50;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
+    .icon {
+      width: 32px; height: 32px; cursor: pointer;
     }
-
-    .option {
-      margin: 8px;
-      padding: 10px 20px;
-      border: 2px solid white;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-
-    .option:hover {
-      transform: scale(1.05);
-      background: rgba(255,255,255,0.1);
-    }
-
-    /* Desktop */
-    #desktop {
-      display: none;
-      padding: 20px;
-    }
-
-    .taskbar {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      background: #2c2c3c;
-      display: flex;
-      justify-content: center;
-      padding: 10px;
-      gap: 15px;
-      z-index: 1000;
-    }
-
-    .app-icon {
-      background: #3c3c4c;
-      border: none;
-      color: #fff;
-      padding: 10px 14px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 14px;
-    }
-
     .window {
-      position: absolute;
-      top: 80px;
-      left: 80px;
-      background: #2a2a3a;
-      border: 1px solid #444;
-      border-radius: 8px;
-      padding: 20px;
-      width: 300px;
-      z-index: 999;
-      cursor: move;
-      color: white;
+      position: absolute; top: 60px; left: 60px; width: 400px; height: 300px;
+      background: white; border: 2px solid #333; display: none; flex-direction: column;
+      z-index: 10;
     }
-
-    .window h2 {
-      margin-top: 0;
-      font-size: 18px;
+    .windowHeader {
+      background: #444; color: white; padding: 5px; cursor: move;
     }
-
-    .close-btn {
-      position: absolute;
-      top: 8px;
-      right: 12px;
-      background: #ff4c4c;
-      border: none;
-      border-radius: 50%;
-      width: 20px;
-      height: 20px;
-      cursor: pointer;
+    .windowBody {
+      flex: 1; padding: 10px; overflow: auto;
+    }
+    .closeBtn {
+      float: right; cursor: pointer;
+    }
+    .dark-theme .window { background: #222; color: white; }
+    .dark-theme .windowHeader { background: #111; }
+    .dark-theme textarea { background: #333; color: white; }
+    #welcomeText {
+      font-size: 1.5em; color: lime; font-family: monospace;
     }
   </style>
 </head>
 <body>
+  <!-- Login Screen -->
+  <div id="loginScreen">
+    <div>Enter password to access AnderOS Demo:</div>
+    <input type="password" id="passwordInput" placeholder="Password" />
+    <button onclick="checkPassword()">Login</button>
+    <div id="loginError" style="color:red; margin-top:10px;"></div>
+  </div>
 
-  <!-- Login -->
-  <div id="login-screen">
-    <div id="login-box">
-      <h2>Welcome to AnderOS</h2>
-      <input type="text" id="username" placeholder="Username" />
-      <input type="password" id="password" placeholder="Password" />
-      <button onclick="checkLogin()">Log In</button>
+  <!-- Setup Wizard -->
+  <div id="setupWizard" style="display:none;">
+    <div id="setupStep1">
+      <div>What time of day do you feel most productive?</div>
+      <select id="timeSelect">
+        <option>Morning</option><option>Night</option><option>Midnight</option><option>Sunrise</option>
+      </select>
+      <button onclick="nextSetup(1)">Next</button>
+    </div>
+    <div id="setupStep2" style="display:none;">
+      <div>Pick your favorite element:</div>
+      <select id="elementSelect">
+        <option>Air</option><option>Earth</option><option>Fire</option><option>Water</option>
+      </select>
+      <button onclick="nextSetup(2)">Next</button>
+    </div>
+    <div id="setupStep3" style="display:none;">
+      <div>Choose a vibe:</div>
+      <select id="vibeSelect">
+        <option>Calm & clean</option><option>Sleek & focused</option><option>Bold & curious</option><option>Free & adventurous</option>
+      </select>
+      <button onclick="finishSetup()">Finish</button>
     </div>
   </div>
 
-  <!-- Setup Quiz -->
-  <div id="setup-quiz" style="display:none;">
-    <div id="quiz-content"></div>
-  </div>
-
-  <!-- Welcome Animation -->
-  <div id="welcome-screen" style="display:none;">
-    <span id="welcome-text"></span>
+  <!-- Welcome Screen -->
+  <div id="welcomeScreen" style="display:none;">
+    <div id="welcomeText"></div>
   </div>
 
   <!-- Desktop -->
-  <div id="desktop">
-    <div class="taskbar">
-      <button class="app-icon" onclick="openFileManager()">📁</button>
-      <button class="app-icon" onclick="openBadgeVault()">🎖</button>
-      <button class="app-icon" onclick="openTextEditor()">📝</button>
-      <button class="app-icon" onclick="toggleTheme()">🌓</button>
+  <div id="desktop" style="display:none;">
+    <div id="taskbar">
+      <img src="file-manager.png" class="icon" onclick="openWindow('fileManager')" title="File Manager" />
+      <img src="badge-vault.png" class="icon" onclick="openWindow('badgeVault')" title="Badge Vault" />
+      <img src="text-editor.png" class="icon" onclick="openWindow('textEditor')" title="Text Editor" />
+      <img src="theme-switcher.png" class="icon" onclick="toggleTheme()" title="Theme Switcher" />
+      <img src="andium.png" class="icon" onclick="demoAlert('Andium')" title="Andium Browser" />
+      <img src="terminal.png" class="icon" onclick="demoAlert('Terminal')" title="Terminal" />
+      <img src="settings.png" class="icon" onclick="demoAlert('Settings')" title="Settings" />
+    </div>
+
+    <!-- Windows -->
+    <div id="fileManager" class="window">
+      <div class="windowHeader">File Manager <span class="closeBtn" onclick="closeWindow('fileManager')">✖</span></div>
+      <div class="windowBody">
+        <ul>
+          <li>📄 anderos-demo.html</li>
+          <li>🖼️ lake-wallpaper.png</li>
+          <li>📝 notes.txt</li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="badgeVault" class="window">
+      <div class="windowHeader">Badge Vault <span class="closeBtn" onclick="closeWindow('badgeVault')">✖</span></div>
+      <div class="windowBody">🏅 You’ve earned: Founder, Designer, Feedback Champion</div>
+    </div>
+
+    <div id="textEditor" class="window">
+      <div class="windowHeader">Text Editor <span class="closeBtn" onclick="closeWindow('textEditor')">✖</span></div>
+      <div class="windowBody"><textarea style="width:100%; height:100%;"></textarea></div>
     </div>
   </div>
 
   <script>
-    function checkLogin() {
-      const password = document.getElementById('password').value;
-      if (password === 'anderos') {
-        document.getElementById('login-screen').style.display = 'none';
-        document.getElementById('setup-quiz').style.display = 'flex';
-        startQuiz();
+    function checkPassword() {
+      const input = document.getElementById('passwordInput').value;
+      if (input === 'anderos') {
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('setupWizard').style.display = 'flex';
       } else {
-        alert('Incorrect password. Try again.');
+        document.getElementById('loginError').innerText = 'Incorrect password.';
       }
     }
 
-    const quizData = [
-      {
-        question: "What time of day do you feel most productive?",
-        options: {
-          "Morning": "light",
-          "Night": "dark",
-          "Midnight": "space",
-          "Sunrise": "aviation"
-        }
-      },
-      {
-        question: "Pick a favorite element:",
-        options: {
-          "Air": "aviation",
-          "Earth": "light",
-          "Fire": "space",
-          "Water": "dark"
-        }
-      },
-      {
-        question: "Choose a vibe:",
-        options: {
-          "Calm & clean": "light",
-          "Sleek & focused": "dark",
-          "Bold & curious": "space",
-          "Free & adventurous": "aviation"
-        }
-      }
-    ];
-
-    let currentQuestion = 0;
-    let themeVotes = { light: 0, dark: 0, space: 0, aviation: 0 };
-
-    function startQuiz() {
-      showQuestion();
+    function nextSetup(step) {
+      document.getElementById('setupStep' + step).style.display = 'none';
+      document.getElementById('setupStep' + (step + 1)).style.display = 'flex';
     }
 
-    function showQuestion() {
-      const q = quizData[currentQuestion];
-      const container = document.getElementById('quiz-content');
-      container.innerHTML = `<div class="question"><h2>${q.question}</h2></div>`;
-      for (let [text, theme] of Object.entries(q.options)) {
-        const btn = document.createElement('div');
-        btn.className = 'option';
-        btn.textContent = text;
-        btn.onclick = () => {
-          themeVotes[theme]++;
-          currentQuestion++;
-          if (currentQuestion < quizData.length) {
-            showQuestion();
-          } else {
-            finishQuiz();
-          }
-        };
-        container.appendChild(btn);
-      }
+    function finishSetup() {
+      document.getElementById('setupWizard').style.display = 'none';
+      document.getElementById('welcomeScreen').style.display = 'flex';
+      typeWriter();
     }
 
-    function finishQuiz() {
-      const chosenTheme = Object.entries(themeVotes).sort((a,b) => b[1] - a[1])[0][0];
-      applyTheme(chosenTheme);
-      document.getElementById('setup-quiz').style.display = 'none';
-      document.getElementById('welcome-screen').style.display = 'flex';
-      typeWriter("Welcome to AnderOS...", () => {
+    const welcomeMessage = "Welcome to AnderOS";
+    let i = 0;
+    function typeWriter() {
+      if (i < welcomeMessage.length) {
+        document.getElementById("welcomeText").innerHTML += welcomeMessage.charAt(i);
+        i++;
+        setTimeout(typeWriter, 100);
+      } else {
         setTimeout(() => {
-          document.getElementById('welcome-screen').style.display = 'none';
+          document.getElementById('welcomeScreen').style.display = 'none';
           document.getElementById('desktop').style.display = 'block';
         }, 1000);
-      });
-    }
-
-    function typeWriter(text, callback) {
-      const el = document.getElementById('welcome-text');
-      let i = 0;
-      el.textContent = "";
-      const interval = setInterval(() => {
-        el.textContent += text.charAt(i);
-        i++;
-        if (i === text.length) {
-          clearInterval(interval);
-          if (callback) callback();
-        }
-      }, 100);
-    }
-
-    function applyTheme(theme) {
-      const body = document.body;
-      switch (theme) {
-        case 'light':
-          body.style.backgroundColor = '#f0f0f0';
-          body.style.color = '#000';
-          break;
-        case 'dark':
-          body.style.backgroundColor = '#1e1e2f';
-          body.style.color = '#fff';
-          break;
-        case 'space':
-          body.style.backgroundColor = '#0b0c2a';
-          body.style.color = '#fff';
-          break;
-        case 'aviation':
-          body.style.backgroundColor = '#e6f2ff';
-          body.style.color = '#003355';
-          break;
       }
     }
 
-    function dragElement(elmnt) {
-      let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-      elmnt.onmousedown = dragMouseDown;
-      function dragMouseDown(e) {
-        e.preventDefault();
-        pos3 = e.clientX;
-        pos4 = e.client
-        pos4 = e.clientY;
-        document.onmouseup = closeDragElement;
-        document.onmousemove = elementDrag;
-      }
-
-      function elementDrag(e) {
-        e.preventDefault();
-        pos1 = pos3 - e.clientX;
-        pos2 = pos4 - e.clientY;
-        pos3 = e.clientX;
-        pos4 = e.clientY;
-        elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-      }
-
-      function closeDragElement() {
-        document.onmouseup = null;
-        document.onmousemove = null;
-      }
+    function openWindow(id) {
+      document.getElementById(id).style.display = 'flex';
     }
 
-    function openFileManager() {
-      const win = document.createElement('div');
-      win.className = 'window';
-      win.innerHTML = `
-        <button class="close-btn" onclick="this.parentElement.remove()"></button>
-        <h2>File Manager</h2>
-        <ul id="file-list"></ul>
-        <button onclick="addFile()">Add File</button>
-      `;
-      document.body.appendChild(win);
-      dragElement(win);
-      renderFiles();
+    function closeWindow(id) {
+      document.getElementById(id).style.display = 'none';
     }
 
-    function addFile() {
-      const files = JSON.parse(localStorage.getItem('files') || '[]');
-      const newFile = 'File_' + (files.length + 1);
-      files.push(newFile);
-      localStorage.setItem('files', JSON.stringify(files));
-      renderFiles();
-    }
-
-    function renderFiles() {
-      const list = document.getElementById('file-list');
-      if (!list) return;
-      const files = JSON.parse(localStorage.getItem('files') || '[]');
-      list.innerHTML = '';
-      files.forEach(file => {
-        const li = document.createElement('li');
-        li.textContent = file;
-        list.appendChild(li);
-      });
-    }
-
-    function openTextEditor() {
-      const win = document.createElement('div');
-      win.className = 'window';
-      win.innerHTML = `
-        <button class="close-btn" onclick="this.parentElement.remove()"></button>
-        <h2>Text Editor</h2>
-        <textarea id="editor" rows="8" cols="30"></textarea><br>
-        <button onclick="saveText()">Save</button>
-        <button onclick="loadText()">Load</button>
-      `;
-      document.body.appendChild(win);
-      dragElement(win);
-      loadText();
-    }
-
-    function saveText() {
-      const text = document.getElementById('editor')?.value;
-      if (text !== undefined) {
-        localStorage.setItem('savedText', text);
-        unlockBadge("Text Saver");
-      }
-    }
-
-    function loadText() {
-      const text = localStorage.getItem('savedText') || '';
-      const editor = document.getElementById('editor');
-      if (editor) editor.value = text;
+    function demoAlert(appName) {
+      alert(appName + ' is not available in demo mode.');
     }
 
     function toggleTheme() {
-      document.body.classList.toggle('light-theme');
-      unlockBadge("Theme Toggler");
-    }
-
-    function openBadgeVault() {
-      const win = document.createElement('div');
-      win.className = 'window';
-      win.innerHTML = `
-        <button class="close-btn" onclick="this.parentElement.remove()"></button>
-        <h2>Badge Vault</h2>
-        <ul id="badge-list"></ul>
-      `;
-      document.body.appendChild(win);
-      dragElement(win);
-      renderBadges();
-    }
-
-    function unlockBadge(name) {
-      const badges = JSON.parse(localStorage.getItem('badges') || '[]');
-      if (!badges.includes(name)) {
-        badges.push(name);
-        localStorage.setItem('badges', JSON.stringify(badges));
-        renderBadges();
-      }
-    }
-
-    function renderBadges() {
-      const list = document.getElementById('badge-list');
-      if (!list) return;
-      const badges = JSON.parse(localStorage.getItem('badges') || '[]');
-      list.innerHTML = '';
-      badges.forEach(b => {
-        const li = document.createElement('li');
-        li.textContent = b;
-        list.appendChild(li);
-      });
+      document.body.classList.toggle('dark-theme');
     }
   </script>
 </body>
+</html>
