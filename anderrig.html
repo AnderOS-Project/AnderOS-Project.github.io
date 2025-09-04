@@ -1,0 +1,151 @@
+html_content = '''
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore the AnderRig Ecosystem</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        section {
+            padding: 20px;
+            margin: 10px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h2 {
+            cursor: pointer;
+            color: #2c3e50;
+        }
+        .content {
+            display: none;
+            padding-top: 10px;
+        }
+        .badge {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 12px;
+            font-size: 0.9em;
+            margin-left: 10px;
+            position: relative;
+        }
+        .badge:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #333;
+            color: white;
+            padding: 5px;
+            border-radius: 5px;
+            white-space: nowrap;
+            z-index: 10;
+        }
+        footer {
+            background-color: #ecf0f1;
+            padding: 20px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #555;
+        }
+        .chart {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Explore the AnderRig Ecosystem</h1>
+    </header>
+
+    <section>
+        <h2 onclick="toggleSection(this)">AnderLite <span class="badge" data-tooltip="Entry-level UX">Tier 1</span></h2>
+        <div class="content">
+            <p><strong>AnderLite Nano:</strong> Compact and efficient for everyday tasks.</p>
+            <p><strong>AnderLite:</strong> Lightweight with flexible form factor.</p>
+            <p><strong>AnderLite Pro</strong> A basic but a good everyday desktop tower. </p>
+        </div>
+    </section>
+
+    <section>
+        <h2 onclick="toggleSection(this)">CoreShell <span class="badge" data-tooltip="Balanced UX">Tier 2</span></h2>
+        <div class="content">
+            <p><strong>CoreShell Pro:</strong> A good laptop option if your looking for a budget, durable solid laptop.(Ram, SSD, WIFI Card are replacable.) </p>
+            <p><strong>CoreShell Ultra:</strong> Enhanced desktop with premium specs for a low price.</p>
+        </div>
+    </section>
+
+    <section>
+        <h2 onclick="toggleSection(this)">Foundry <span class="badge" data-tooltip="Creative UX">Tier 3</span></h2>
+        <div class="content">
+            <p><strong>ForgeOne:</strong> Designed for creators and builders.</p>
+            <p><strong>ForgeMax:</strong> Maximum customization and power.</p>
+        </div>
+    </section>
+
+    <section>
+        <h2 onclick="toggleSection(this)">AnderCore <span class="badge" data-tooltip="Advanced emotional UX">Tier 4</span></h2>
+        <div class="content">
+            <p><strong>CorePrime:</strong> Central intelligence with adaptive UX.</p>
+            <p><strong>CoreUltra:</strong> High-performance with emotional feedback.</p>
+        </div>
+    </section>
+
+    <section>
+        <h2 onclick="toggleSection(this)">AnderTab <span class="badge" data-tooltip="Mobile emotional UX">Tier 5</span></h2>
+        <div class="content">
+            <p><strong>TabMini:</strong> Portable and intuitive interface.</p>
+            <p><strong>TabPro:</strong> Professional-grade mobile experience.</p>
+        </div>
+    </section>
+
+    <section>
+        <h2 onclick="toggleSection(this)">AnderFold <span class="badge" data-tooltip="Transformative emotional UX">Tier 6</span></h2>
+        <div class="content">
+            <p><strong>FoldFlex:</strong> Foldable design with immersive UX.</p>
+            <p><strong>FoldMax:</strong> Maximum transformation and engagement.</p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="chart">
+            <strong></strong>UX Scaling Chart:</strong><br>
+            Tier 1 → Basic Comfort<br>
+            Tier 2 → Balanced Satisfaction<br>
+            Tier 3 → Creative Joy<br>
+            Tier 4 → Intelligent Empathy<br>
+            Tier 5 → Mobile Delight<br>
+            Tier 6 → Transformative Awe
+        </div>
+        <p>Built by Joe — Founder’s Brain</p>
+    </footer>
+
+    <script>
+        function toggleSection(header) {
+            const content = header.nextElementSibling;
+            content.style.display = content.style.display === 'block' ? 'none' : 'block';
+        }
+    </script>
+</body>
+</html>
+'''
+
+with open("/mnt/data/ander_devices_page.html", "w") as f:
+    f.write(html_content)
+
+print("HTML page for AnderRig and AnderCore Devices successfully created.")
